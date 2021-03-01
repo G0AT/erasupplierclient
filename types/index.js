@@ -1,0 +1,3 @@
+export const ASIGNAR_GRUPO = 'ASIGNAR_GRUPO';
+export const ASIGNAR_ALMACEN = 'ASIGNAR_ALMACEN';
+export const CANTIDAD = 'CANTIDAD';
