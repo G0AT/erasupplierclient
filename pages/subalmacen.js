@@ -45,7 +45,7 @@ const SubAlmacen = () => {
 
                 {obtenerSubAlmacen.length === 0 ? (
                     <Fragment>
-                        <p className="mt-5 text-center text-2xl">Existen datos</p>
+                        <p className="mt-5 text-center text-2xl">No existen datos</p>
                     </Fragment>
                 ) : (
                     obtenerSubAlmacen.map(subalmacen => (

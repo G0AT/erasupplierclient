@@ -44,7 +44,7 @@ const AlmacenMaterial = ({Almacen}) => {
 
     //Destructuring para información del almacén
     const {nombreMaterial, descripcionMaterial, existenciaMaterial, maximoMaterial,codigoMaterial, estatusMaterial, id} = Almacen;
-
+    
     //Eliminamos el cliente
     const confirmarEliminarAlmacen = () => {
         Swal.fire({
