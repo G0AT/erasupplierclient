@@ -23,7 +23,7 @@ const Index = () => {
   const router = useRouter();
 
   //Obtenemos todos los elementos del almacén
-  const {data, loading, client, error} = useQuery(OBTENER_ALMACEN);
+  const {data, loading, error} = useQuery(OBTENER_ALMACEN);
   //console.log(data);
   //console.log(loading);
   //console.log(error);
@@ -31,9 +31,10 @@ const Index = () => {
   if(loading) {
     return <p>Cargando...</p>;
   }
+  
+  const {obtenerAlmacen} = data;
 
-  if(!data.obtenerAlmacen){
-    client.clearStore();
+  if(!obtenerAlmacen){
     router.push("/login");
     return <p>Redirigiendo...</p>
   }
@@ -49,7 +50,7 @@ const Index = () => {
               <svg className="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </a>
           </Link>
-          {data.obtenerAlmacen.length > 0 ? (
+          {obtenerAlmacen.length > 0 ? (
             <Fragment>
               <div className="overflow-x-scroll">
                 <table className="table-auto shadow-md mt-10 w-full w-lg">

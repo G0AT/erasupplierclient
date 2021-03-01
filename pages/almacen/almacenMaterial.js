@@ -1,7 +1,7 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 import { gql, useMutation } from '@apollo/client';
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 
 const ELIMINAR_ALMACEN = gql`
   mutation eliminarAlmacen($id: ID!) {
@@ -23,6 +23,7 @@ const OBTENER_ALMACEN = gql`
 `;
 
 const AlmacenMaterial = ({Almacen}) => {
+  const router = useRouter();
     //Eliminar almacen
     const [ eliminarAlmacen ] = useMutation(ELIMINAR_ALMACEN, {
       update(cache) {
@@ -79,7 +80,7 @@ const AlmacenMaterial = ({Almacen}) => {
     }
 
     const editarAlmacen = () => {
-      Router.push({
+      router.push({
         pathname: "/almacen/[id]",
         query: {id}
       })

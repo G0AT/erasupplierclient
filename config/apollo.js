@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import { setContext } from 'apollo-link-context';
 
 const httpLink = createHttpLink({
-    uri: 'https://mighty-gorge-22778.herokuapp.com/',
+    uri: 'https://pure-atoll-50513.herokuapp.com/',
     fetch
 });
 
