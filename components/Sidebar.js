@@ -10,7 +10,7 @@ const Sidebar = () => {
                 <p className="text-white text-2xl">ERA - Supplier</p>
             </div>
             <nav className="mt-5 list-none">
-                <li className={router.pathname === '/' ? "bg-blue-500 p-2" : "p-2"}>
+                <li className={router.pathname === '/' || router.pathname === 'nuevoAlmacen'? "bg-blue-500 p-2" : "p-2"}>
                     <Link href="/">
                         <a className="text-white flex justify-between items-center rounded">
                             Almacén
@@ -18,7 +18,7 @@ const Sidebar = () => {
                         </a>
                     </Link>
                 </li>
-                <li className={router.pathname === '/grupos' || router.pathname === '/grupo/nuevoGrupo' ? "bg-blue-500 p-2" : "p-2"}>
+                <li className={router.pathname === '/grupos' || router.pathname === '/nuevoGrupo' ? "bg-blue-500 p-2" : "p-2"}>
                     <Link href="/grupos">
                         <a className="text-white flex justify-between items-center rounded">
                             Grupos
@@ -26,7 +26,7 @@ const Sidebar = () => {
                         </a>
                     </Link>
                 </li>
-                <li className={router.pathname === '/subalmacen' || router.pathname === '/subalmacen/nuevoSubAlmacen' ? "bg-blue-500 p-2" : "p-2"}>
+                <li className={router.pathname === '/subalmacen' || router.pathname === '/nuevoSubAlmacen' ? "bg-blue-500 p-2" : "p-2"}>
                     <Link href="/subalmacen">
                         <a className="text-white flex justify-between items-center rounded">
                             Subalmacén
@@ -34,7 +34,7 @@ const Sidebar = () => {
                         </a>
                     </Link>
                 </li>
-                <li className={router.pathname === '/usuarios' || router.pathname === '/usuario/nuevoUsuario' ? "bg-blue-500 p-2" : "p-2"}>
+                <li className={router.pathname === '/usuarios' || router.pathname === '/nuevoUsuario' ? "bg-blue-500 p-2" : "p-2"}>
                     <Link href="/usuarios">
                         <a className="text-white flex justify-between items-center rounded">
                             Usuarios

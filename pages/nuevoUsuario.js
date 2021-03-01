@@ -1,11 +1,10 @@
 import React, {Fragment, useState} from 'react';
-import Layout from '../../components/Layout';
+import Layout from '../components/Layout';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useMutation, gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
-import Select from 'react-select';
 
 const NUEVO_USUARIO_INTERNO = gql`
     mutation nuevoUsuarioInterno($input: UsuarioInternoInput){

@@ -20,6 +20,7 @@ const OBTENER_GRUPO = gql`
 `;
 
 const GrupoListado = ({grupo}) => {
+  //console.log(grupo)
     //Eliminar almacen
     const [ eliminarGrupo ] = useMutation(ELIMINAR_GRUPO, {
       update(cache) {
@@ -39,7 +40,7 @@ const GrupoListado = ({grupo}) => {
     });
 
     //Destructuring para información de los grupos
-    const {id, nombreGrupo, codigoGrupo} = grupo;
+    const {nombreGrupo, codigoGrupo, id} = grupo;
 
     //Eliminamos el cliente
     const confirmarEliminarGrupo = () => {

@@ -1,9 +1,9 @@
 import React, { Fragment, useContext, useState } from 'react';
-import Layout from '../../components/Layout';
-import AsignarGrupo from '../../components/subAlmacen/AsignarGrupo';
-import AsignarAlmacen from '../../components/subAlmacen/AsignarAlmacen';
-import ResumenSubAlmacen from '../../components/subAlmacen/ResumenSubAlmacen';
-import SubAlmacenContext from '../../context/subAlmacen/SubAlmacenContext';
+import Layout from '../components/Layout';
+import AsignarGrupo from '../components/subAlmacen/AsignarGrupo';
+import AsignarAlmacen from '../components/subAlmacen/AsignarAlmacen';
+import ResumenSubAlmacen from '../components/subAlmacen/ResumenSubAlmacen';
+import SubAlmacenContext from '../context/subAlmacen/SubAlmacenContext';
 import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2';
