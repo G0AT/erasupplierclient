@@ -6,8 +6,12 @@ const Sidebar = () => {
     const router = useRouter();
     return ( 
         <aside className="bg-gray-800 sm:w-1/3 xl:w-1/5 sm:min-h-screen p-5">
-            <div>
-                <p className="text-white text-2xl">ERA - Supplier</p>
+            <div className="md:flex md:justify-center md:items-center border-b-2 border-white">
+                <Link href={'/'}>
+                    <a className="cursor-pointer">
+                        <img src='/Era neo.png' height={80} width={80} className="mb-2"/>
+                    </a>
+                </Link>
             </div>
             <nav className="mt-5 list-none">
                 <li className={router.pathname === '/' || router.pathname === 'nuevoAlmacen'? "bg-blue-500 p-2" : "p-2"}>

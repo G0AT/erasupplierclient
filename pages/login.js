@@ -19,6 +19,7 @@ const Login = () => {
 
     //Hook para mensajes de error
     const [mensaje, guardarMensaje] = useState(null);
+    const [isChecked, setIsChecked] = useState(false);
 
     //mutation para iniciar sesión en apollo
     const [ autenticarUsuario ] = useMutation(AUTENTCAR_USUARIO);
@@ -105,10 +106,11 @@ const Login = () => {
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">Password</label>
                                 <input 
-                                    type="password" 
+                                    type={isChecked ? "text" :"password"} 
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-400 focus:shadow-outline "
                                     id="password"
                                     placeholder="Password"
+                                    autoComplete="false"
                                     value={formik.values.password}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -121,6 +123,16 @@ const Login = () => {
                                     <p>{formik.errors.password}</p>
                                 </div>) : null }
 
+                            <div className="mb-4 sm:flex">
+                                <input 
+                                    type="checkbox"
+                                    checked ={isChecked}
+                                    className="w-4 h-4 mr-2 bg-gray-600 border-2 "
+                                    id="ver"
+                                    onChange={e => {setIsChecked(e.target.checked)}}
+                                />
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="ver">Mostrar Contraseña</label>
+                            </div>
                             <div>
                                 <input 
                                     type="submit" 
