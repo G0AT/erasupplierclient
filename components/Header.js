@@ -18,9 +18,6 @@ const Header = () => {
     const router = useRouter();
 
     const {data, loading, client, error} = useQuery(OBTENER_USUARIO);
-    // console.log(data);
-    // console.log(loading);
-    // console.log(error);
 
     //Proteger el acceso a data antes de obtener el usuario
     if(loading) {

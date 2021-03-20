@@ -39,7 +39,7 @@ const EditarGrupo = () => {
     const { query:{id} } = router;
     //console.log(id);
 
-    //consulta pára obtener al cliente
+    //consulta pára obtener al grupo específico
     const { data, loading, error } = useQuery(OBTENER_GRUPO_ID, {
         variables: {
             id
