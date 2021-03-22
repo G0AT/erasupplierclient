@@ -5,9 +5,8 @@ import * as yup from 'yup';
 import { useMutation, gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Swal from 'sweetalert2';
 
-const AUTENTICAR_USUARIO = gql `
+const AUTENTCAR_USUARIO = gql `
     mutation autenticarUsuario ($input : AutenticarInput){
         autenticarUsuario(input: $input){
             token
@@ -23,7 +22,7 @@ const Login = () => {
     const [isChecked, setIsChecked] = useState(false);
 
     //mutation para iniciar sesión en apollo
-    const [ autenticarUsuario ] = useMutation(AUTENTICAR_USUARIO);
+    const [ autenticarUsuario ] = useMutation(AUTENTCAR_USUARIO);
 
     const formik = useFormik({
         initialValues: {
@@ -45,20 +44,23 @@ const Login = () => {
                         }
                     }
                 });
-                
                 guardarMensaje('Autenticando...');
-                const { token } = data.autenticarUsuario;
-                localStorage.setItem('token', token);
+
+                //Guardar valores en localstorage
+                setTimeout(() => {
+                    const { token } = data.autenticarUsuario;
+                    localStorage.setItem('token', token);
+                }, 2000);
 
                 //Redireccionar hacia clientes
                 setTimeout(() => {
                     guardarMensaje(null);
                     router.push('/');
-                }, 2000);
+                }, 1000);
 
             } catch (error) {
                 guardarMensaje(error.message.replace('GraphQL error: ', ''));
-                
+
                 setTimeout(() => {
                     guardarMensaje(null);
                 }, 2000);

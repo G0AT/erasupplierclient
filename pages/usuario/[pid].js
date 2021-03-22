@@ -11,7 +11,6 @@ const OBTENER_USUARIO_ID = gql`
         obtenerUsuarioId(id:$id){
             nombre
             apellido
-            password
             email
             estatus
         }
@@ -23,7 +22,6 @@ const OBTENER_USUARIOS = gql`
         obtenerUsuarios{
             nombre
             apellido
-            password
             email
             estatus
         }
@@ -31,12 +29,11 @@ const OBTENER_USUARIOS = gql`
 `;
 
 const ACTUALIZAR_USUARIO = gql`
-    mutation actualizarUsuario ($id: ID!, $input: UsuarioInternoInput){
+    mutation actualizarUsuario ($id: ID!, $input: UpdateUsuarioInput){
         actualizarUsuario(id:$id, input:$input){
             nombre
             apellido
             email
-            password
             estatus
         }
     }
@@ -85,7 +82,6 @@ const EditarUsuario = () => {
     const schemaValidacion = yup.object({
         nombre: yup.string().required('El campo es obligatorio'),
         apellido: yup.string().required('El campo es obligatorio'),
-        password: yup.string().required('El campo es obligatorio').min(8, 'Require de al menos 8 caracteres'),
         email: yup.string().email('El email no es válido').required('El campo es obligatorio'),
         estatus: yup.string().required('El campo es obligatorio')
     });
@@ -97,7 +93,7 @@ const EditarUsuario = () => {
 
     //Modificar el grupo
     const actualizarInfoUsuario = async valores => {
-        const {nombre, apellido, password, email, estatus} = valores;
+        const {nombre, apellido, email, estatus} = valores;
         try {
             const {data} = await actualizarUsuario({
                 variables: {
@@ -106,7 +102,6 @@ const EditarUsuario = () => {
                         nombre,
                         apellido,
                         email,
-                        password,
                         estatus
                     }
                 }
@@ -207,24 +202,6 @@ const EditarUsuario = () => {
                                         </div>
                                     ) : null }
 
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">Password</label>
-                                    <input 
-                                        type="password" 
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-400 focus:shadow-outline "
-                                        id="password"
-                                        value={props.values.password}
-                                        onChange={props.handleChange}
-                                        onBlur={props.handleBlur}
-                                    />
-                                </div>
-
-                                    {props.touched.password && props.errors.password ? (
-                                        <div className="my-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                            <p className="font-bold">Error</p>
-                                            <p>{props.errors.password}</p>
-                                        </div>
-                                    ) : null }
 
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="estatus">Estatus usuario</label>

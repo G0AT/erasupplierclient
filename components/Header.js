@@ -17,22 +17,33 @@ const OBTENER_USUARIO = gql`
 const Header = () => {
     const router = useRouter();
 
-    const {data, loading, error} = useQuery(OBTENER_USUARIO);
+    const {data, loading, client, error} = useQuery(OBTENER_USUARIO);
+    // console.log(data);
+    // console.log(loading);
+    // console.log(error);
 
     //Proteger el acceso a data antes de obtener el usuario
-    if(loading) return null;
+    if(loading) {
+        return <p>Cargando...</p>;
+    }
     
     //Si no hay información
     if(!data.obtenerUsuario) {
+        /**
+         * Se comenta por que elimina la sesión actual
+         * que obliga a un doble inicio se sesión
+         */
+        client.clearStore();
         router.push("/login");
+        return <p>Redirigiendo...</p>;
     } 
 
-    const {nombre, apellido} = data;
+    const {nombre, apellido} = data.obtenerUsuario;
     
     const cerrarSesion = () => {
         localStorage.removeItem('token', '');
-        localStorage.removeItem('ally-supports-cache', '');
-        return router.push('/login');
+        router.push('/login');
+        return <p>Redirigiendo...</p>;
     }
 
     return ( 
