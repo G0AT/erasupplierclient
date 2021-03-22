@@ -11,6 +11,7 @@ const OBTENER_USUARIO_ID = gql`
         obtenerUsuarioId(id:$id){
             nombre
             apellido
+            password
             email
             estatus
         }
@@ -22,6 +23,7 @@ const OBTENER_USUARIOS = gql`
         obtenerUsuarios{
             nombre
             apellido
+            password
             email
             estatus
         }
@@ -29,7 +31,7 @@ const OBTENER_USUARIOS = gql`
 `;
 
 const ACTUALIZAR_USUARIO = gql`
-    mutation actualizarUsuario ($id: ID!, $input: UpdateUsuarioInput){
+    mutation actualizarUsuario ($id: ID!, $input: UsuarioInternoInput){
         actualizarUsuario(id:$id, input:$input){
             nombre
             apellido
