@@ -47,11 +47,11 @@ const Login = () => {
                 });
                 
                 guardarMensaje('Autenticando...');
+                const { token } = data.autenticarUsuario;
+                localStorage.setItem('token', token);
 
                 //Redireccionar hacia clientes
                 setTimeout(() => {
-                    const { token } = data.autenticarUsuario;
-                    localStorage.setItem('token', token);
                     guardarMensaje(null);
                     router.push('/');
                 }, 2000);
