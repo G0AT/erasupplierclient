@@ -33,13 +33,10 @@ const Index = () => {
   }
   
   const {obtenerAlmacen} = data;
-  localStorage.getItem('token');
 
   if(!obtenerAlmacen){
     router.push("/login");
     return <p>Redirigiendo...</p>
-  }else {
-    router.push("/");
   }
 
   const vistasProtegidas = () => {
