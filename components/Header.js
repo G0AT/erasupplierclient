@@ -17,26 +17,22 @@ const OBTENER_USUARIO = gql`
 const Header = () => {
     const router = useRouter();
 
-    const {data, loading, client, error} = useQuery(OBTENER_USUARIO);
+    const {data, loading, error} = useQuery(OBTENER_USUARIO);
 
     //Proteger el acceso a data antes de obtener el usuario
-    if(loading) {
-        return <p>Cargando...</p>;
-    }
+    if(loading) return null;
     
     //Si no hay información
     if(!data.obtenerUsuario) {
-        client.clearStore();
         router.push("/login");
-        return <p>Redirigiendo...</p>;
     } 
 
-    const {nombre, apellido} = data.obtenerUsuario;
+    const {nombre, apellido} = data;
     
     const cerrarSesion = () => {
         localStorage.removeItem('token', '');
-        router.push('/login');
-        return <p>Redirigiendo...</p>;
+        localStorage.removeItem('ally-supports-cache', '');
+        return router.push('/login');
     }
 
     return ( 

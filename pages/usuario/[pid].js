@@ -46,7 +46,7 @@ const EditarUsuario = () => {
     //console.log(id);
 
     //consulta pára obtener al usuario
-    const { data, loading, error } = useQuery(OBTENER_USUARIO_ID, {
+    const { data, loading, error, client } = useQuery(OBTENER_USUARIO_ID, {
         variables: {
             id
         }
@@ -82,6 +82,7 @@ const EditarUsuario = () => {
     const schemaValidacion = yup.object({
         nombre: yup.string().required('El campo es obligatorio'),
         apellido: yup.string().required('El campo es obligatorio'),
+        password: yup.string().required('El campo es obligatorio').min(8, 'Require de al menos 8 caracteres'),
         email: yup.string().email('El email no es válido').required('El campo es obligatorio'),
         estatus: yup.string().required('El campo es obligatorio')
     });
@@ -102,6 +103,7 @@ const EditarUsuario = () => {
                         nombre,
                         apellido,
                         email,
+                        password,
                         estatus
                     }
                 }
@@ -114,6 +116,7 @@ const EditarUsuario = () => {
             )
 
             //Redireccionar a la cabecera de grupos
+            client.clearStore();
             router.push('/usuarios');
 
         } catch (error) {
@@ -201,6 +204,24 @@ const EditarUsuario = () => {
                                         </div>
                                     ) : null }
 
+                                <div className="mb-4">
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">Password Usuario</label>
+                                    <input 
+                                        type="password" 
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-400 focus:shadow-outline "
+                                        id="password"
+                                        value={props.values.password}
+                                        onChange={props.handleChange}
+                                        onBlur={props.handleBlur}
+                                    />
+                                </div>
+
+                                    {props.touched.password && props.errors.password ? (
+                                        <div className="my-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                            <p className="font-bold">Error</p>
+                                            <p>{props.errors.password}</p>
+                                        </div>
+                                    ) : null }
 
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="estatus">Estatus usuario</label>

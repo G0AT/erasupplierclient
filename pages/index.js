@@ -33,14 +33,20 @@ const Index = () => {
   }
   
   const {obtenerAlmacen} = data;
+  localStorage.getItem('token');
 
   if(!obtenerAlmacen){
     router.push("/login");
     return <p>Redirigiendo...</p>
   }
 
+  const vistasProtegidas = () => {
+    router.push('/login');
+  }
+
   return (
     <Fragment>
+      { obtenerAlmacen ? (
       <div>
         <Layout>
           <h1 className="text-2xl text-gray-800 font-light">Almacén</h1>
@@ -83,6 +89,7 @@ const Index = () => {
           )}
         </Layout>
       </div>
+      ) : vistasProtegidas()}
     </Fragment>
   )
 }

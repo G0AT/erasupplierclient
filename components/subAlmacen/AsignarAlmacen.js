@@ -20,15 +20,11 @@ const AsignarAlmacen = () => {
     const subAlmacenContext = useContext(SubAlmacenContext);
     const {agregarAlmacen} = subAlmacenContext;
 
-    const {data, loading, error} = useQuery(OBTENER_ALMACEN);
+    const {data, loading, error, client} = useQuery(OBTENER_ALMACEN);
     //console.log(data)
     
     useEffect(() => {
-        if(almacen == null){
-            setAlmacen([]);
-        } else {
-            agregarAlmacen(almacen);
-        }
+        agregarAlmacen(almacen);
     }, [almacen]);
 
     const seleccionarAlmacen = almacen => {
@@ -36,7 +32,6 @@ const AsignarAlmacen = () => {
     }
 
     if(loading) return null;
-
     const {obtenerAlmacen} = data;
 
     return ( 

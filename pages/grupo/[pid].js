@@ -40,7 +40,7 @@ const EditarGrupo = () => {
     //console.log(id);
 
     //consulta pára obtener al grupo específico
-    const { data, loading, error } = useQuery(OBTENER_GRUPO_ID, {
+    const { data, loading, error, client } = useQuery(OBTENER_GRUPO_ID, {
         variables: {
             id
         }
@@ -104,6 +104,7 @@ const EditarGrupo = () => {
             )
 
             //Redireccionar a la cabecera de grupos
+            client.clearStore();
             router.push('/grupos');
 
         } catch (error) {

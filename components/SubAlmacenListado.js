@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { gql, useMutation } from '@apollo/client';
 import Swal from 'sweetalert2';
-import Router from 'next/router';
 
 const ACTUALIZAR_SUBALMACEN = gql`
     mutation actualizarSubAlmacen($id: ID!, $input: SubAlmacenInput) {
@@ -18,8 +17,8 @@ const ELIMINAR_SUBALMACEN = gql`
 `;
 
 const OBTENER_SUBALMACEN = gql`
-    query obtenerSubAlmacen {
-        obtenerSubAlmacen {
+    query obtenerSubAlmacenGrupo {
+        obtenerSubAlmacenGrupo {
             id
         }
     }
@@ -34,17 +33,17 @@ const SubAlmacenListado = ({subalmacen}) => {
     const [actualizarSubAlmacen, ] = useMutation(ACTUALIZAR_SUBALMACEN);
     const [eliminarSubAlmacen] = useMutation(ELIMINAR_SUBALMACEN, {
         update(cache) {
-            if (cache.data.data.ROOT_QUERY.obtenerSubAlmacen) {
-                const { obtenerSubAlmacen} = cache.readQuery({
+            if (cache.data.data.ROOT_QUERY.obtenerSubAlmacenGrupo) {
+                const { obtenerSubAlmacenGrupo} = cache.readQuery({
                     query: OBTENER_SUBALMACEN
                 });
-
                 cache.writeQuery({
                     query: OBTENER_SUBALMACEN,
                     data: {
-                        obtenerSubAlmacen: obtenerSubAlmacen.filter( subalmacen => subalmacen.id !== id )
+                        obtenerSubAlmacenGrupo: obtenerSubAlmacenGrupo.filter( subalmacen => subalmacen.id !== id)
                     }
                 })
+                
             }
         }
     });

@@ -5,8 +5,9 @@ import * as yup from 'yup';
 import { useMutation, gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Swal from 'sweetalert2';
 
-const AUTENTCAR_USUARIO = gql `
+const AUTENTICAR_USUARIO = gql `
     mutation autenticarUsuario ($input : AutenticarInput){
         autenticarUsuario(input: $input){
             token
@@ -22,7 +23,7 @@ const Login = () => {
     const [isChecked, setIsChecked] = useState(false);
 
     //mutation para iniciar sesión en apollo
-    const [ autenticarUsuario ] = useMutation(AUTENTCAR_USUARIO);
+    const [ autenticarUsuario ] = useMutation(AUTENTICAR_USUARIO);
 
     const formik = useFormik({
         initialValues: {
@@ -44,6 +45,7 @@ const Login = () => {
                         }
                     }
                 });
+                
                 guardarMensaje('Autenticando...');
 
                 //Guardar valores en localstorage
@@ -60,7 +62,7 @@ const Login = () => {
 
             } catch (error) {
                 guardarMensaje(error.message.replace('GraphQL error: ', ''));
-
+                
                 setTimeout(() => {
                     guardarMensaje(null);
                 }, 2000);
@@ -80,7 +82,9 @@ const Login = () => {
         <Fragment>
             <Layout>
                 { mensaje && mostrarMensaje() }
-                <h1 className="text-center text-2xl text-white font-light">Login</h1>
+                <div className="flex justify-center mt-5 lg:-mb-6 sm:-mb-6">
+                    <h1 className="flex justify-center bg-white w-96 border border-b-8 border-gray-600"><img src='/Era neo.png' height={80} width={80} className="mb-2"/></h1>
+                </div>
                 <div className="flex justify-center mt-5">
                     <div className="w-full max-w-sm">
                         <form className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4" onSubmit={formik.handleSubmit}>

@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { gql, useQuery } from '@apollo/client';
 
 const OBTENER_SUBALMACEN = gql`
-    query obtenerSubAlmacen {
-        obtenerSubAlmacen {
+    query obtenerSubAlmacenGrupo {
+        obtenerSubAlmacenGrupo {
             id
             almacenados {
                 id
@@ -30,7 +30,7 @@ const SubAlmacen = () => {
 
     if(loading) return null;
 
-    const {obtenerSubAlmacen} = data;
+    const {obtenerSubAlmacenGrupo} = data;
 
     return ( 
         <Fragment>
@@ -43,12 +43,12 @@ const SubAlmacen = () => {
                     </a>
                 </Link>
 
-                {obtenerSubAlmacen.length === 0 ? (
+                {obtenerSubAlmacenGrupo.length === 0 ? (
                     <Fragment>
                         <p className="mt-5 text-center text-2xl">No existen datos</p>
                     </Fragment>
                 ) : (
-                    obtenerSubAlmacen.map(subalmacen => (
+                    obtenerSubAlmacenGrupo.map(subalmacen => (
                         <SubAlmacenListado
                             key={subalmacen.id}
                             subalmacen={subalmacen}

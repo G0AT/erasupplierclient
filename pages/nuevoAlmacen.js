@@ -75,35 +75,43 @@ const NuevoAlmacen = () => {
         onSubmit: async valores => {
             const { nombreMaterial, descripcionMaterial, existenciaMaterial, maximoMaterial, codigoMaterial } = valores;
             //console.log(valores);
-            try {
-                const {data} = await nuevoAlmacen ({
-                    variables: {
-                        input: {
-                            nombreMaterial,
-                            descripcionMaterial,
-                            existenciaMaterial,
-                            maximoMaterial,
-                            codigoMaterial,
+            if (existenciaMaterial > maximoMaterial) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ooops...',
+                    text: 'El material excede la existencia contra el límite declarado',
+                })
+            } else {
+                try {
+                    const {data} = await nuevoAlmacen ({
+                        variables: {
+                            input: {
+                                nombreMaterial,
+                                descripcionMaterial,
+                                existenciaMaterial,
+                                maximoMaterial,
+                                codigoMaterial,
+                            }
                         }
-                    }
-                });
-                //console.log(data);
-                
-                Swal.fire(
-                    'Creado',
-                    `El material ${data.nombreMaterial} se ha registrado de forma correcta`,
-                    'success'
-                )
+                    });
+                    //console.log(data);
+                    
+                    Swal.fire(
+                        'Creado',
+                        `El material ${data.nombreMaterial} se ha registrado de forma correcta`,
+                        'success'
+                    )
 
-                router.push('/');
-                
-            } catch (error) {
-                guardarMensaje(error.message.replace('GraphQL error: ', ''));
+                    router.push('/');
+                    
+                } catch (error) {
+                    guardarMensaje(error.message.replace('GraphQL error: ', ''));
 
-                setTimeout(() => {
-                    guardarMensaje(null);
-                }, 2000);
-                console.log(error);
+                    setTimeout(() => {
+                        guardarMensaje(null);
+                    }, 2000);
+                    console.log(error);
+                }
             }
         }
     });

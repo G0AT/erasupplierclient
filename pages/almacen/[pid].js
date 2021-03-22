@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { gql, useQuery, useMutation, InMemoryCache } from '@apollo/client';
 import Swal from 'sweetalert2';
 
 const OBTENER_ALMACEN_ID = gql`
@@ -51,7 +51,7 @@ const EditarAlmacen = () => {
     //console.log(id);
 
     //consulta pára obtener al cliente
-    const { data, loading, error } = useQuery(OBTENER_ALMACEN_ID, {
+    const { data, loading, error, client } = useQuery(OBTENER_ALMACEN_ID, {
         variables: {
             id
         }
@@ -62,7 +62,7 @@ const EditarAlmacen = () => {
             const {obtenerAlmacen} = cache.readQuery({
                 query: OBTENER_ALMACEN
             });
-            
+                
             const almacenActualizado = obtenerAlmacen.map(
                 almacen => almacen.id === id ? actualizarAlmacen:almacen
             );
@@ -101,33 +101,41 @@ const EditarAlmacen = () => {
     //Modificar el material del almacen
     const actualizarInfoAlmacen = async valores => {
         const {nombreMaterial, descripcionMaterial, existenciaMaterial, maximoMaterial, codigoMaterial, estatusMaterial} = valores;
-        try {
-            const {data} = await actualizarAlmacen({
-                variables: {
-                    id,
-                    input: {
-                        nombreMaterial,
-                        descripcionMaterial,
-                        existenciaMaterial,
-                        maximoMaterial,
-                        codigoMaterial,
+        if (existenciaMaterial > obtenerAlmacenId.maximoMaterial) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Ooops...',
+                text: 'El material excede la existencia contra el límite declarado',
+            })
+        } else {
+            try {
+                const {data} = await actualizarAlmacen({
+                    variables: {
+                        id,
+                        input: {
+                            nombreMaterial,
+                            descripcionMaterial,
+                            existenciaMaterial,
+                            maximoMaterial,
+                            codigoMaterial,
+                        }
                     }
-                }
-            });
-            //Lanzar alerta con sweet alert
-            Swal.fire(
-                'Actualizado',
-                'El material se actualizó correctamente',
-                'success'
-            )
+                });
+                //Lanzar alerta con sweet alert
+                Swal.fire(
+                    'Actualizado',
+                    `El material ${nombreMaterial} se actualizó correctamente`,
+                    'success'
+                )
 
-            //Redireccionar al index
-            router.push('/');
+                //Redireccionar al index
+                client.clearStore();
+                router.push('/');
 
-        } catch (error) {
-            console.log(error);
+            } catch (error) {
+                console.log(error);
+            }
         }
-
     }
 
     return ( 
@@ -143,7 +151,9 @@ const EditarAlmacen = () => {
                             initialValues = { obtenerAlmacenId }
                             onSubmit = { (valores) => {
                                 actualizarInfoAlmacen(valores)
+                                resetForm({});
                             }}
+                            
                         >
 
                         {props => {
