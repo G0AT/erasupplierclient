@@ -48,17 +48,13 @@ const Login = () => {
                 
                 guardarMensaje('Autenticando...');
 
-                //Guardar valores en localstorage
+                //Redireccionar hacia clientes
                 setTimeout(() => {
                     const { token } = data.autenticarUsuario;
                     localStorage.setItem('token', token);
-                }, 2000);
-
-                //Redireccionar hacia clientes
-                setTimeout(() => {
                     guardarMensaje(null);
                     router.push('/');
-                }, 1000);
+                }, 2000);
 
             } catch (error) {
                 guardarMensaje(error.message.replace('GraphQL error: ', ''));

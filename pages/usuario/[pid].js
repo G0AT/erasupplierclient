@@ -34,6 +34,7 @@ const ACTUALIZAR_USUARIO = gql`
             nombre
             apellido
             email
+            password
             estatus
         }
     }
@@ -94,7 +95,7 @@ const EditarUsuario = () => {
 
     //Modificar el grupo
     const actualizarInfoUsuario = async valores => {
-        const {nombre, apellido, email, estatus} = valores;
+        const {nombre, apellido, password, email, estatus} = valores;
         try {
             const {data} = await actualizarUsuario({
                 variables: {
