@@ -38,6 +38,8 @@ const Index = () => {
   if(!obtenerAlmacen){
     router.push("/login");
     return <p>Redirigiendo...</p>
+  }else {
+    router.push("/");
   }
 
   const vistasProtegidas = () => {
