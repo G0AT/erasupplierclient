@@ -49,8 +49,6 @@ const NuevoSubAlmacen = () => {
         update(cache, { data: { nuevoSubAlmacen }}) {
             if (cache.data.data.ROOT_QUERY.obtenerSubAlmacen) {
                 const {  obtenerSubAlmacen} = cache.readQuery({query: OBTENER_SUBALMACEN });
-                
-                //console.log(obtenerSubAlmacen)
                 cache.writeQuery({ 
                     query: OBTENER_SUBALMACEN,
                         data: {
@@ -71,7 +69,6 @@ const NuevoSubAlmacen = () => {
 
         //Realizar un remove a lo no deseado de lo extraido
         const almacenados = almacen.map(({ __typename, existenciaMaterial, ...almacen}) => almacen);
-        //console.log(almacenados);
         try {
             const { data } = await nuevoSubAlmacen({
                 variables: {
@@ -81,7 +78,6 @@ const NuevoSubAlmacen = () => {
                     }
                 }
             });
-            //console.log(data);
 
             router.push('/subalmacen');
 
