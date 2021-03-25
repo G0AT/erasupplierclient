@@ -40,8 +40,6 @@ const NuevoSubAlmacen = () => {
 
     const [mensaje, setMensaje] = useState(null);
 
-    const {data, loading, error, client} = useQuery(OBTENER_SUBALMACEN);
-    if (loading) return null;
     //Utilizar context y extraer valores
     const subAlmacenContext = useContext(SubAlmacenContext);
     const { grupo, almacen } = subAlmacenContext;
@@ -50,12 +48,8 @@ const NuevoSubAlmacen = () => {
     const [nuevoSubAlmacen] = useMutation(NUEVO_SUBALMACEN, {
         update(cache, { data: { nuevoSubAlmacen }}) {
             if (cache.data.data.ROOT_QUERY.obtenerSubAlmacen) {
-<<<<<<< HEAD
                 const { obtenerSubAlmacen } = cache.readQuery({query: OBTENER_SUBALMACEN });
                 
-=======
-                const {  obtenerSubAlmacen} = cache.readQuery({query: OBTENER_SUBALMACEN });
->>>>>>> 369b1fe69a9ced7dbb6ca7c029bd0afba14af67d
                 cache.writeQuery({ 
                     query: OBTENER_SUBALMACEN,
                         data: {
@@ -86,7 +80,6 @@ const NuevoSubAlmacen = () => {
                 }
             });
             //console.log(data);
-            client.clearStore();
             router.push('/subalmacen');
 
              // Mostrar alerta
