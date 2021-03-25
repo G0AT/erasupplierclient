@@ -50,8 +50,12 @@ const NuevoSubAlmacen = () => {
     const [nuevoSubAlmacen] = useMutation(NUEVO_SUBALMACEN, {
         update(cache, { data: { nuevoSubAlmacen }}) {
             if (cache.data.data.ROOT_QUERY.obtenerSubAlmacen) {
+<<<<<<< HEAD
                 const { obtenerSubAlmacen } = cache.readQuery({query: OBTENER_SUBALMACEN });
                 
+=======
+                const {  obtenerSubAlmacen} = cache.readQuery({query: OBTENER_SUBALMACEN });
+>>>>>>> 369b1fe69a9ced7dbb6ca7c029bd0afba14af67d
                 cache.writeQuery({ 
                     query: OBTENER_SUBALMACEN,
                         data: {
@@ -81,8 +85,12 @@ const NuevoSubAlmacen = () => {
                     }
                 }
             });
+<<<<<<< HEAD
             //console.log(data);
             client.clearStore();
+=======
+
+>>>>>>> 369b1fe69a9ced7dbb6ca7c029bd0afba14af67d
             router.push('/subalmacen');
 
              // Mostrar alerta

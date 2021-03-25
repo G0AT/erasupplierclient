@@ -26,7 +26,6 @@ const OBTENER_SUBALMACEN = gql`
 const SubAlmacen = () => {
 
     const {data, loading, error} = useQuery(OBTENER_SUBALMACEN);
-    //console.log(data);
 
     if(loading) return null;
 
