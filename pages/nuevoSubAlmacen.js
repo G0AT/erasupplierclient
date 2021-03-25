@@ -85,12 +85,8 @@ const NuevoSubAlmacen = () => {
                     }
                 }
             });
-<<<<<<< HEAD
             //console.log(data);
             client.clearStore();
-=======
-
->>>>>>> 369b1fe69a9ced7dbb6ca7c029bd0afba14af67d
             router.push('/subalmacen');
 
              // Mostrar alerta
