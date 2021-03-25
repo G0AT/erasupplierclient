@@ -4,7 +4,7 @@ import AsignarGrupo from '../components/subAlmacen/AsignarGrupo';
 import AsignarAlmacen from '../components/subAlmacen/AsignarAlmacen';
 import ResumenSubAlmacen from '../components/subAlmacen/ResumenSubAlmacen';
 import SubAlmacenContext from '../context/subAlmacen/SubAlmacenContext';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2';
 
@@ -40,6 +40,8 @@ const NuevoSubAlmacen = () => {
 
     const [mensaje, setMensaje] = useState(null);
 
+    const {data, loading, error, client} = useQuery(OBTENER_SUBALMACEN);
+    if (loading) return null;
     //Utilizar context y extraer valores
     const subAlmacenContext = useContext(SubAlmacenContext);
     const { grupo, almacen } = subAlmacenContext;
@@ -48,9 +50,8 @@ const NuevoSubAlmacen = () => {
     const [nuevoSubAlmacen] = useMutation(NUEVO_SUBALMACEN, {
         update(cache, { data: { nuevoSubAlmacen }}) {
             if (cache.data.data.ROOT_QUERY.obtenerSubAlmacen) {
-                const {  obtenerSubAlmacen} = cache.readQuery({query: OBTENER_SUBALMACEN });
+                const { obtenerSubAlmacen } = cache.readQuery({query: OBTENER_SUBALMACEN });
                 
-                //console.log(obtenerSubAlmacen)
                 cache.writeQuery({ 
                     query: OBTENER_SUBALMACEN,
                         data: {
@@ -71,9 +72,8 @@ const NuevoSubAlmacen = () => {
 
         //Realizar un remove a lo no deseado de lo extraido
         const almacenados = almacen.map(({ __typename, existenciaMaterial, ...almacen}) => almacen);
-        //console.log(almacenados);
         try {
-            const { data } = await nuevoSubAlmacen({
+            const { data} = await nuevoSubAlmacen({
                 variables: {
                     input: {
                         grupo: id,
@@ -82,7 +82,7 @@ const NuevoSubAlmacen = () => {
                 }
             });
             //console.log(data);
-
+            client.clearStore();
             router.push('/subalmacen');
 
              // Mostrar alerta

@@ -98,7 +98,7 @@ const NuevoAlmacen = () => {
                     
                     Swal.fire(
                         'Creado',
-                        `El material ${data.nombreMaterial} se ha registrado de forma correcta`,
+                        `El material ${nombreMaterial} se ha registrado de forma correcta`,
                         'success'
                     )
 

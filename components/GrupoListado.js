@@ -24,7 +24,7 @@ const GrupoListado = ({grupo}) => {
     //Eliminar almacen
     const [ eliminarGrupo ] = useMutation(ELIMINAR_GRUPO, {
       update(cache) {
-        if (cache.data.data.ROOT_QUERY.obtenerSubAlmacen) {
+        if (cache.data.data.ROOT_QUERY.obtenerGrupo) {
           //Obtenemos el objeto que deseamos actualizar
           const {obtenerGrupo} = cache.readQuery ({ query: OBTENER_GRUPO });
 
@@ -44,36 +44,35 @@ const GrupoListado = ({grupo}) => {
 
     //Eliminamos el cliente
     const confirmarEliminarGrupo = () => {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡Esta acción es irreversible!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, eliminalo!',
-            cancelButtonText: 'No, Cancelar'
-          }).then( async (result) => {
-            if (result.value) {
-              try {
-                //Eliminar por id
-                const { data } = await eliminarGrupo({
-                  variables: {
-                    id
-                  }
-                });
-
-                Swal.fire(
-                  'Eliminado!',
-                  data.eliminarGrupo,
-                  'success'
-                )
-              } catch (error) {
-                console.log(error);
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡Esta acción es irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminalo!',
+        cancelButtonText: 'No, Cancelar'
+      }).then( async (result) => {
+        if (result.value) {
+          try {
+            //Eliminar por id
+            const { data } = await eliminarGrupo({
+              variables: {
+                id
               }
-              
-            }
-          })
+            });
+
+            Swal.fire(
+              'Eliminado!',
+              data.eliminarGrupo,
+              'success'
+            )
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      })
     }
 
     const editarGrupo = () => {

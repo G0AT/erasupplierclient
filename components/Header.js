@@ -42,6 +42,7 @@ const Header = () => {
     
     const cerrarSesion = () => {
         localStorage.removeItem('token', '');
+        localStorage.removeItem('ally-supports-cache', '');
         router.push('/login');
         return <p>Redirigiendo...</p>;
     }
